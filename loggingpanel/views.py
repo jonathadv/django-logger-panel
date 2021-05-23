@@ -39,6 +39,7 @@ class LoggingListView(FormView):
         logname = form.cleaned_data["logname"]
         if logname == "ALL":
             for _, logger in Logger.manager.loggerDict.items():
+                print(f"########### logger: {logger}")
                 if not isinstance(logger, PlaceHolder):
                     logger.setLevel(loglevel)
         else:
@@ -56,8 +57,8 @@ class LoggingDetailView(TemplateView):
     template_name = "loggingpanel/detail.html"
 
     def get_context_data(self, logname=None, **kwargs):
-        print(f"###########: logname: {logname}")
         context = super().get_context_data(**kwargs)
-        context['logger'] = Logger.manager.loggerDict.get(logname),
+        context['logname'] = logname
+        context['logger'] = Logger.manager.loggerDict.get(logname)
         return context
 

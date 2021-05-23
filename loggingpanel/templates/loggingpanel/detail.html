@@ -1,17 +1,48 @@
-{% load tags %}
-{% if logger %}
-{{logger}}
-<a href="/logging/">root</a>
-    <ul>
-        <li><span>name: </span> {{logger.name}}</li>
-        <li><span>level: </span> {{logger.level | log_level_name}}</li>
-        <li><span>effectiveLevel: </span> {{ logger.getEffectiveLevel  | log_level_name}}</li>
-        <li><span>parent: </span> <a href="/logging/{{ logger.parent.name }}">{{ logger.parent.name }}</a></li>
-        <li><span>propagate: </span> {{logger.propagate}}</li>
-        <li><span>handlers: </span> {{logger.handlers}}</li>
-        <li><span>disabled: </span> {{logger.disabled}}</li>
-    </ul>
-{% else %}
-    <a href="/logging/">root</a>
-    <p>No logname to display</p>
+{% extends "loggingpanel/base.html" %}
+{% load loggingpanel %}
+
+{% block content %}
+    <main class="flex-shrink-0">
+      <div class="container">
+         <h1 class="mt-5">Logger <code>{{logname}}</code></h1>
+        {% if logger %}
+         <ul class="list-group list-group-flush">
+           <li class="list-group-item">
+               <span class="fw-bold">Name: </span>
+               <code>{{logger.name}}</code>
+           </li>
+           <li class="list-group-item">
+               <span class="fw-bold">Level: </span>
+               <code>{{logger.level | log_level_name}}</code>
+           </li>
+           <li class="list-group-item">
+               <span class="fw-bold">Effective Level: </span>
+               <code>{{ logger.getEffectiveLevel  | log_level_name}}</code>
+           </li>
+           <li class="list-group-item">
+               <span class="fw-bold">Parent: </span>
+               {% if logger.parent.name == 'root' %}
+               <code>{{ logger.parent.name }}</code>
+               {% else %}
+               <a href="/logging/{{logger.parent.name}}">{{ logger.parent.name}}</a>
+               {% endif %}
+           </li>
+           <li class="list-group-item">
+               <span class="fw-bold">Propagate: </span>
+               <code>{{ logger.propagate}}</code>
+           </li>
+           <li class="list-group-item">
+               <span class="fw-bold">Handlers: </span>
+               <code>{{ logger.handlers}}</code>
+           </li>
+           <li class="list-group-item">
+               <span class="fw-bold">Disabled: </span>
+               <code>{{ logger.disabled}}</code>
+           </li>
+        </ul>
+        {% else %}
+            <h2 class="mt-5">Logger Not Found</code></h2>
+      </div>
+    </main>
 {% endif %}
+{% endblock %}
