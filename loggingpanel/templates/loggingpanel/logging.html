@@ -13,7 +13,7 @@
         <p>For more information about <code class="small">logging.Logger.setLevel()</code>
           read the <a href="https://docs.python.org/3/library/logging.html#logging.Logger.setLevel">documentation</a>.</p>
           <div class="row">
-            <div class="col">
+            <div class="col-4">
               <h4>Logger Name</h4>
             </div>
             <div class="col">
@@ -22,11 +22,13 @@
             <div class="col">
               <h4>Effective Logger Level</h4>
             </div>
+            <div class="col">
+            </div>
           </div>
           <!-- Ends Header -->
           <!-- All logs -->
           <div class="row">
-            <div class="col">
+            <div class="col-4">
               <span class="fw-bold">ALL</span>
             </div>
             <div class="col">
@@ -46,12 +48,14 @@
               {% csrf_token %}
               </form>
             </div>
+             <div class="col">
+            </div>
           </div>
           <!-- All logs end -->
           {% for loggername, logger in loggerdict.items %}
             <form action="/logging/" method="POST">
               <div class="row">
-                <div class="col">
+                <div class="col-4">
                   <code class="">{{loggername}}</code>
                 </div>
               <div class="col">
@@ -71,6 +75,9 @@
                   {% csrf_token %}
                   </form>
                 </div>
+             <div class="col">
+               <a href="/logging/{{loggername}}"><i class="bi bi-arrow-up-right-square"></i></a>
+            </div>
               </div>
             </form>
           {% endfor %}
