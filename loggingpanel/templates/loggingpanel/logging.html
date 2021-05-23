@@ -1,11 +1,17 @@
 {% extends "loggingpanel/base.html" %}
+{% load loggingpanel %}
 
 {% block content %}
 {% if loggerdict %}
     <main class="flex-shrink-0">
       <div class="container">
         <h1 class="mt-5">Loggers</h1>
-        <p class="lead">Here you will find all loaded logs from the Python's <code class="small">logging</code> module.</p>
+        <p class="lead">List of all loggers loaded from the Python's <code class="small">logging</code> module.</p>
+        <p><span class="fw-bold">Log Level</span> is the specific level set for a logger.
+          If no level is set, the <span class="fw-bold">Effective Logger Level</span>
+          will be the nearest parent's log level in the logger hierarchy.</p>
+        <p>For more information about <code class="small">logging.Logger.setLevel()</code>
+          read the <a href="https://docs.python.org/3/library/logging.html#logging.Logger.setLevel">documentation</a>.</p>
           <div class="row">
             <div class="col">
               <h4>Logger Name</h4>
@@ -13,12 +19,18 @@
             <div class="col">
               <h4>Logger Level</h4>
             </div>
+            <div class="col">
+              <h4>Effective Logger Level</h4>
+            </div>
           </div>
           <!-- Ends Header -->
           <!-- All logs -->
           <div class="row">
             <div class="col">
               <span class="fw-bold">ALL</span>
+            </div>
+            <div class="col">
+              <span class="fw-bold"></span>
             </div>
               <div class="col">
               <form action="/logging/" method="POST">
@@ -41,6 +53,9 @@
               <div class="row">
                 <div class="col">
                   <code class="">{{loggername}}</code>
+                </div>
+              <div class="col">
+                  <code class="">{{logger.level | log_level_name}}</code>
                 </div>
                 <div class="col">
                   <form action="/logging/" method="POST">
