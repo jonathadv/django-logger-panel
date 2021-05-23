@@ -4,8 +4,15 @@
 {% block content %}
     <main class="flex-shrink-0">
       <div class="container">
-         <h1 class="mt-5">Logger <code>{{logname}}</code></h1>
+
         {% if logger %}
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{base_url}}">Loggers</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{logname}}</li>
+            </ol>
+          </nav>
+          <h1 class="mt-5">Logger <code>{{logname}}</code></h1>
          <ul class="list-group list-group-flush">
            <li class="list-group-item">
                <span class="fw-bold">Name: </span>
@@ -24,7 +31,7 @@
                {% if logger.parent.name == 'root' %}
                <code>{{ logger.parent.name }}</code>
                {% else %}
-               <a href="/logging/{{logger.parent.name}}">{{ logger.parent.name}}</a>
+               <a href="{{base_url}}{{logger.parent.name}}">{{ logger.parent.name}}</a>
                {% endif %}
            </li>
            <li class="list-group-item">
@@ -41,7 +48,13 @@
            </li>
         </ul>
         {% else %}
-            <h2 class="mt-5">Logger Not Found</code></h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="{{base_url}}">Loggers</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{logname}}</li>
+            </ol>
+          </nav>
+          <h1 class="mt-5">Logger Not Found</code></h1>
       </div>
     </main>
 {% endif %}

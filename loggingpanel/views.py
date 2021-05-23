@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+from django.conf import settings
 from django.http import HttpResponse
 from django.views.generic import TemplateView
 from django.template import loader
@@ -15,6 +16,9 @@ LEVELS = {
     'NOTSET': NOTSET,
 }
 
+BASE_URL = settings.LOGGING_PANEL_BASE_URL if hasattr(settings, "LOGGING_PANEL_BASE_URL") else "/logging/"
+ALL_LOG_LEVEL = NOTSET
+
 from django.views.generic.edit import FormView
 from django import forms
 
@@ -27,7 +31,8 @@ class ContactForm(forms.Form):
 class LoggingListView(FormView):
     template_name = "loggingpanel/logging.html"
     form_class = ContactForm
-    success_url = '/logging/'
+    success_url = BASE_URL
+
 
     def form_invalid(self, form):
         print(f"#############INVALID")
@@ -37,20 +42,29 @@ class LoggingListView(FormView):
     def form_valid(self, form):
         loglevel = form.cleaned_data["loglevel"]
         logname = form.cleaned_data["logname"]
+        loggers = get_all_loggers()
+
         if logname == "ALL":
-            for _, logger in Logger.manager.loggerDict.items():
-                print(f"########### logger: {logger}")
-                if not isinstance(logger, PlaceHolder):
-                    logger.setLevel(loglevel)
+            global ALL_LOG_LEVEL
+            ALL_LOG_LEVEL = loglevel
+            for _, logger in loggers.items():
+                logger.setLevel(loglevel)
         else:
-            Logger.manager.loggerDict.get(logname).setLevel(loglevel)
+            loggers.get(logname).setLevel(loglevel)
+
         return super(LoggingListView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['loggerdict'] = {k: v for k, v in Logger.manager.loggerDict.items() if not isinstance(v, PlaceHolder)}
+        context['loggerdict'] = get_all_loggers()
+        context['all_log_level'] = ALL_LOG_LEVEL
         context['log_levels'] = LEVELS
+        context['base_url'] = BASE_URL
+
+
         return context
+
+
 
 
 class LoggingDetailView(TemplateView):
@@ -58,7 +72,18 @@ class LoggingDetailView(TemplateView):
 
     def get_context_data(self, logname=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        loggers = loggers = get_all_loggers()
         context['logname'] = logname
-        context['logger'] = Logger.manager.loggerDict.get(logname)
+        context['logger'] = loggers.get(logname)
+        context['base_url'] = BASE_URL
         return context
 
+
+def get_all_loggers():
+    loggers = {
+        "root": Logger.root,
+    }
+    for key, logger in Logger.manager.loggerDict.items():
+        if not isinstance(logger, PlaceHolder):
+            loggers[key] = logger
+    return loggers

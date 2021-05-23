@@ -5,6 +5,11 @@
 {% if loggerdict %}
     <main class="flex-shrink-0">
       <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active" aria-current="page">Loggers</li>
+        </ol>
+      </nav>
         <h1 class="mt-5">Loggers</h1>
         <p class="lead">List of all loggers loaded from the Python's <code class="small">logging</code> module.</p>
         <p><span class="fw-bold">Log Level</span> is the specific level set for a logger.
@@ -35,12 +40,12 @@
               <span class="fw-bold"></span>
             </div>
               <div class="col">
-              <form action="/logging/" method="POST">
+              <form action="{{base_url}}" method="POST">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <select name="loglevel" class="form-select" aria-label="Default select example">
-                  {% for level_name, level_number in log_levels.items %}
-                  <option value="{{level_name}}">{{level_name}}</option>
-                  {% endfor %}
+                      {% for level_name, level_number in log_levels.items %}
+                      <option value="{{level_name}}" {% if level_number == all_log_level %} selected {% endif %}>{{level_name}}</option>
+                      {% endfor %}
                 </select>
                 <button class="btn btn-primary" type="submit">Set</button>
               </div>
@@ -53,7 +58,7 @@
           </div>
           <!-- All logs end -->
           {% for loggername, logger in loggerdict.items %}
-            <form action="/logging/" method="POST">
+            <form action="{{base_url}}" method="POST">
               <div class="row">
                 <div class="col-4">
                   <code class="">{{loggername}}</code>
@@ -62,7 +67,7 @@
                   <code class="">{{logger.level | log_level_name}}</code>
                 </div>
                 <div class="col">
-                  <form action="/logging/" method="POST">
+                  <form action="{{base_url}}" method="POST">
                   <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <select name="loglevel" class="form-select" aria-label="Default select example">
                       {% for level_name, level_number in log_levels.items %}
@@ -76,7 +81,7 @@
                   </form>
                 </div>
              <div class="col">
-               <a href="/logging/{{loggername}}"><i class="bi bi-arrow-up-right-square"></i></a>
+               <a href="{{base_url}}{{loggername}}"><i class="bi bi-arrow-up-right-square"></i></a>
             </div>
               </div>
             </form>
