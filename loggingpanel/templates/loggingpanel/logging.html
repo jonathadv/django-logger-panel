@@ -1,0 +1,67 @@
+{% extends "loggingpanel/base.html" %}
+
+{% block content %}
+{% if loggerdict %}
+    <main class="flex-shrink-0">
+      <div class="container">
+        <h1 class="mt-5">Loggers</h1>
+        <p class="lead">Here you will find all loaded logs from the Python's <code class="small">logging</code> module.</p>
+          <div class="row">
+            <div class="col">
+              <h4>Logger Name</h4>
+            </div>
+            <div class="col">
+              <h4>Logger Level</h4>
+            </div>
+          </div>
+          <!-- Ends Header -->
+          <!-- All logs -->
+          <div class="row">
+            <div class="col">
+              <span class="fw-bold">ALL</span>
+            </div>
+              <div class="col">
+              <form action="/logging/" method="POST">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <select name="loglevel" class="form-select" aria-label="Default select example">
+                  {% for level_name, level_number in log_levels.items %}
+                  <option value="{{level_name}}">{{level_name}}</option>
+                  {% endfor %}
+                </select>
+                <button class="btn btn-primary" type="submit">Set</button>
+              </div>
+              <input type="hidden" name="logname" value="ALL"/></td>
+              {% csrf_token %}
+              </form>
+            </div>
+          </div>
+          <!-- All logs end -->
+          {% for loggername, logger in loggerdict.items %}
+            <form action="/logging/" method="POST">
+              <div class="row">
+                <div class="col">
+                  <code class="">{{loggername}}</code>
+                </div>
+                <div class="col">
+                  <form action="/logging/" method="POST">
+                  <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <select name="loglevel" class="form-select" aria-label="Default select example">
+                      {% for level_name, level_number in log_levels.items %}
+                      <option value="{{level_name}}" {% if level_number == logger.getEffectiveLevel %} selected {% endif %}>{{level_name}}</option>
+                      {% endfor %}
+                    </select>
+                    <button class="btn btn-primary" type="submit">Set</button>
+                  </div>
+                  <input type="hidden" name="logname" value="{{loggername}}"/></td>
+                  {% csrf_token %}
+                  </form>
+                </div>
+              </div>
+            </form>
+          {% endfor %}
+      </div>
+    </main>
+{% else %}
+    <p>No logs to display</p>
+{% endif %}
+{% endblock %}
