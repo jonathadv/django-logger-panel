@@ -1,11 +1,10 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.conf import settings
-from django.http import HttpResponse
-from django.views.generic import TemplateView
-from django.template import loader
 from logging import Logger, PlaceHolder, CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
+
+from django import forms
+from django.views.generic import TemplateView
+from django.views.generic.edit import FormView
+
+from loggerpanel import BASE_URL
 
 LEVELS = {
     'CRITICAL': CRITICAL,
@@ -16,11 +15,7 @@ LEVELS = {
     'NOTSET': NOTSET,
 }
 
-BASE_URL = settings.LOGGING_PANEL_BASE_URL if hasattr(settings, "LOGGING_PANEL_BASE_URL") else "/logging/"
 ALL_LOG_LEVEL = NOTSET
-
-from django.views.generic.edit import FormView
-from django import forms
 
 
 class ContactForm(forms.Form):
@@ -29,7 +24,7 @@ class ContactForm(forms.Form):
 
 
 class LoggingListView(FormView):
-    template_name = "loggingpanel/logging.html"
+    template_name = "loggerpanel/loggers.html"
     form_class = ContactForm
     success_url = BASE_URL
 
@@ -46,7 +41,7 @@ class LoggingListView(FormView):
 
         if logname == "ALL":
             global ALL_LOG_LEVEL
-            ALL_LOG_LEVEL = loglevel
+            ALL_LOG_LEVEL = LEVELS.get(loglevel, NOTSET)
             for _, logger in loggers.items():
                 logger.setLevel(loglevel)
         else:
@@ -68,7 +63,7 @@ class LoggingListView(FormView):
 
 
 class LoggingDetailView(TemplateView):
-    template_name = "loggingpanel/detail.html"
+    template_name = "loggerpanel/detail.html"
 
     def get_context_data(self, logname=None, **kwargs):
         context = super().get_context_data(**kwargs)
