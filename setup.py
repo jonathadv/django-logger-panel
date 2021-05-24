@@ -9,16 +9,16 @@ import os
 import sys
 from shutil import rmtree
 
-from setuptools import setup, Command
+from setuptools import find_packages, setup, Command
 
 # Package meta-data.
-NAME = "loggerpanel"
+NAME = "django-logger-panel"
 DESCRIPTION = "An easy way to change the log level in runtime."
 URL = "https://github.com/jonathadv/django-logger-panel"
 EMAIL = "jonatha@daguerre.com.br"
 AUTHOR = "Jonatha Daguerre"
 REQUIRES_PYTHON = ">=3.6.0"
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 
 # What packages are required for this module to be executed?
 REQUIRED = [
@@ -69,7 +69,7 @@ class LintCommand(Command):
 
     def run(self):
         self.status("Running Pylint...")
-        os.system(f"pipenv run pylint {MODULE_NAMES}".format(sys.executable))
+        os.system(f"pipenv run pylint {NAME}".format(sys.executable))
         sys.exit()
 
 
@@ -144,7 +144,7 @@ setup(
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    py_modules=["loggerpanel"],
+    packages=find_packages(),
     install_requires=REQUIRED,
     extras_require=EXTRAS,
     include_package_data=True,
@@ -157,8 +157,11 @@ setup(
         "Natural Language :: English",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3 :: Only',
         "Programming Language :: Python :: Implementation :: CPython",
     ],
     # $ setup.py publish support.

@@ -1,6 +1,6 @@
-[![pypi version](https://img.shields.io/pypi/v/loggerpanel.svg)](https://pypi.python.org/pypi/loggerpanel) 
-[![license](https://img.shields.io/pypi/l/loggerpanel.svg)](https://pypi.python.org/pypi/loggerpanel) 
-[![python versions](https://img.shields.io/pypi/pyversions/loggerpanel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![pypi version](https://img.shields.io/pypi/v/django-logger-panel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![license](https://img.shields.io/pypi/l/django-logger-panel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![python versions](https://img.shields.io/pypi/pyversions/django-logger-panel.svg)](https://pypi.python.org/pypi/loggerpanel) 
 [![contributors](https://img.shields.io/github/contributors/jonathadv/django-logger-panel.svg)](https://github.com/jonathadv/django-logger-panel/graphs/contributors) 
 
 
@@ -8,6 +8,10 @@
  
 An easy way to change the log level in runtime
 
+
+## Installation
+
+`pip install django-logger-panel`
 
 ## Features
 - List all active loggers .
