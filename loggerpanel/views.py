@@ -29,21 +29,29 @@ class LoggerListView(FormView):
         logger_name = form.cleaned_data["log_name"]
         logger_level = form.cleaned_data["log_level"]
         try:
-            LOGGER.debug("Setting logger_level='%s' to logger_name='%s'", logger_level, logger_name)
+            LOGGER.debug(
+                "Setting logger_level='%s' to logger_name='%s'",
+                logger_level,
+                logger_name,
+            )
             set_logger_level(logger_name, logger_level)
         except Exception as err:
-            LOGGER.error("Error while setting logger_level='%s' to logger_name='%s'",
-                         logger_level, logger_name, stack_info=True)
+            LOGGER.error(
+                "Error while setting logger_level='%s' to logger_name='%s'",
+                logger_level,
+                logger_name,
+                stack_info=True,
+            )
             raise ValidationError(err) from err
 
         return super(LoggerListView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['loggerdict'] = get_all_loggers()
-        context['all_log_level'] = get_all_log_level()
-        context['log_levels'] = LEVELS
-        context['base_url'] = BASE_URL
+        context["loggerdict"] = get_all_loggers()
+        context["all_log_level"] = get_all_log_level()
+        context["log_levels"] = LEVELS
+        context["base_url"] = BASE_URL
         return context
 
 
@@ -53,8 +61,7 @@ class LoggingDetailView(TemplateView):
     def get_context_data(self, log_name=None, **kwargs):
         context = super().get_context_data(**kwargs)
         loggers = get_all_loggers()
-        context['log_name'] = log_name
-        context['logger'] = loggers.get(log_name)
-        context['base_url'] = BASE_URL
+        context["log_name"] = log_name
+        context["logger"] = loggers.get(log_name)
+        context["base_url"] = BASE_URL
         return context
-
