@@ -5,11 +5,11 @@
 {% if loggerdict %}
     <main class="flex-shrink-0">
       <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item active" aria-current="page">Loggers</li>
-        </ol>
-      </nav>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Loggers</li>
+          </ol>
+        </nav>
         <h1 class="mt-5">Loggers</h1>
         <p class="lead">List of all loggers loaded from the Python's <code class="small">logging</code> module.</p>
         <p><span class="fw-bold">Log Level</span> is the specific level set for a logger.
@@ -17,6 +17,7 @@
           will be the nearest parent's log level in the logger hierarchy.</p>
         <p>For more information about <code class="small">logging.Logger.setLevel()</code>
           read the <a href="https://docs.python.org/3/library/logging.html#logging.Logger.setLevel">documentation</a>.</p>
+        <div class="pt-5">
           <div class="row">
             <div class="col-4">
               <h4>Logger Name</h4>
@@ -86,6 +87,7 @@
               </div>
             </form>
           {% endfor %}
+        </div>
       </div>
     </main>
 {% else %}

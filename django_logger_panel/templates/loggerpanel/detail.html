@@ -28,8 +28,8 @@
            </li>
            <li class="list-group-item">
                <span class="fw-bold">Parent: </span>
-               {% if logger.parent.name == 'root' %}
-               <code>{{ logger.parent.name }}</code>
+               {% if logger.name == 'root' %}
+               <code>N/A</code>
                {% else %}
                <a href="{{base_url}}{{logger.parent.name}}">{{ logger.parent.name}}</a>
                {% endif %}
