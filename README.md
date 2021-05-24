@@ -22,7 +22,7 @@ An easy way to change the log level in runtime
 
 ## Settings.py
 
-
+### INSTALLED_APPS
 Add `loggerpanel` to installed apps
 
 ```python
@@ -32,14 +32,48 @@ INSTALLED_APPS = [
 ]
 ```
 
-Optionally, change the default base url `/loggers/` by setting the property `LOGGER_PANEL_BASE_URL`.
+### LOGGING
 
+Make sure the `LOGGING` variable in `settings.py` has a `logger` named `''` with at least one `handler`. 
+This is the `root` `logger` configuration and will allow all `loggers` with no `handler` to inherit it from the `root`. 
 
+**Example:**
+
+```python
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(levelname)-8s %(name)-12s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'DEBUG',
+            'handlers': ['console'],
+        },
+    },
+}
 ```
+
+### LOGGER_PANEL_BASE_URL
+Optionally, change the default base url `/loggers/` by setting the property `LOGGER_PANEL_BASE_URL`.
+This variable is not required.
+
+```python
 LOGGER_PANEL_BASE_URL = "/another-path/"
 ```
 
 ## urls.py
+
+Add the `django_logger_panel.urls` to the `urlpatterns`.
 
 ```python
 urlpatterns = [
