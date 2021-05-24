@@ -1,0 +1,15 @@
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+target-version = ['py38']
+extend-exclude = '''
+# Files
+^/manage.py
+
+|
+
+# Directories
+/(
+  | migrations
+)/
+'''

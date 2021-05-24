@@ -8,6 +8,7 @@ name = "pypi"
 [dev-packages]
 twine = "*"
 black = "==21.5b1"
+pylint = "*"
 
 [requires]
 python_version = "3.8"
