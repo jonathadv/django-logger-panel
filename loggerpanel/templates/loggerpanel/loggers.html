@@ -42,14 +42,14 @@
               <div class="col">
               <form action="{{base_url}}" method="POST">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <select name="loglevel" class="form-select" aria-label="Default select example">
+                <select name="log_level" class="form-select" aria-label="Default select example">
                       {% for level_name, level_number in log_levels.items %}
                       <option value="{{level_name}}" {% if level_number == all_log_level %} selected {% endif %}>{{level_name}}</option>
                       {% endfor %}
                 </select>
                 <button class="btn btn-primary" type="submit">Set</button>
               </div>
-              <input type="hidden" name="logname" value="ALL"/></td>
+              <input type="hidden" name="log_name" value="ALL"/></td>
               {% csrf_token %}
               </form>
             </div>
@@ -69,14 +69,14 @@
                 <div class="col">
                   <form action="{{base_url}}" method="POST">
                   <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                    <select name="loglevel" class="form-select" aria-label="Default select example">
+                    <select name="log_level" class="form-select" aria-label="Default select example">
                       {% for level_name, level_number in log_levels.items %}
                       <option value="{{level_name}}" {% if level_number == logger.getEffectiveLevel %} selected {% endif %}>{{level_name}}</option>
                       {% endfor %}
                     </select>
                     <button class="btn btn-primary" type="submit">Set</button>
                   </div>
-                  <input type="hidden" name="logname" value="{{loggername}}"/></td>
+                  <input type="hidden" name="log_name" value="{{loggername}}"/></td>
                   {% csrf_token %}
                   </form>
                 </div>
