@@ -1,3 +1,9 @@
+[![pypi version](https://img.shields.io/pypi/v/loggerpanel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![license](https://img.shields.io/pypi/l/loggerpanel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![python versions](https://img.shields.io/pypi/pyversions/loggerpanel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![contributors](https://img.shields.io/github/contributors/jonathadv/django-logger-panel.svg)](https://github.com/jonathadv/django-logger-panel/graphs/contributors) 
+
+
 # django-logger-panel
  
 An easy way to change the log level in runtime
