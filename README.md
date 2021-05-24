@@ -1,6 +1,6 @@
 # django-logger-panel
  
-A easy way to change the log level in runtime
+An easy way to change the log level in runtime
 
 
 ## Features
