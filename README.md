@@ -1,6 +1,6 @@
-[![pypi version](https://img.shields.io/pypi/v/django-logger-panel.svg)](https://pypi.python.org/pypi/loggerpanel) 
-[![license](https://img.shields.io/pypi/l/django-logger-panel.svg)](https://pypi.python.org/pypi/loggerpanel) 
-[![python versions](https://img.shields.io/pypi/pyversions/django-logger-panel.svg)](https://pypi.python.org/pypi/loggerpanel) 
+[![pypi version](https://img.shields.io/pypi/v/django-logger-panel.svg)](https://pypi.python.org/pypi/django-logger-panel) 
+[![license](https://img.shields.io/pypi/l/django-logger-panel.svg)](https://pypi.python.org/pypi/django-logger-panel) 
+[![python versions](https://img.shields.io/pypi/pyversions/django-logger-panel.svg)](https://pypi.python.org/pypi/django-logger-panel) 
 [![contributors](https://img.shields.io/github/contributors/jonathadv/django-logger-panel.svg)](https://github.com/jonathadv/django-logger-panel/graphs/contributors) 
 
 
