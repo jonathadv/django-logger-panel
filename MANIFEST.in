@@ -1,8 +1,8 @@
 include README.md
 include LICENSE.md
 recursive-include tests/ *
-recursive-include loggerpanel/static *.js *.css *.png *.ico *.eot *.svg *.ttf *.woff *.woff2
-recursive-include loggerpanel/templates *.html schema.js
-recursive-include loggerpanel/locale *.mo
+recursive-include django_logger_panel/static *.js *.css *.png *.ico *.eot *.svg *.ttf *.woff *.woff2
+recursive-include django_logger_panel/templates *.html schema.js
+recursive-include django_logger_panel/locale *.mo
 global-exclude __pycache__
 global-exclude *.py[co]

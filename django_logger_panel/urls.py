@@ -1,7 +1,7 @@
 from django.urls import path
 
-from loggerpanel.views import LoggingDetailView, LoggerListView
-from loggerpanel import BASE_URL_WITHOUT_LEADING_SLASH
+from django_logger_panel.views import LoggingDetailView, LoggerListView
+from django_logger_panel import BASE_URL_WITHOUT_LEADING_SLASH
 
 BASE_URL = BASE_URL_WITHOUT_LEADING_SLASH
 

@@ -28,7 +28,7 @@ Add `loggerpanel` to installed apps
 ```python
 INSTALLED_APPS = [
     ...
-    'loggerpanel',    
+    'django_logger_panel',    
 ]
 ```
 
@@ -44,7 +44,7 @@ LOGGER_PANEL_BASE_URL = "/another-path/"
 ```python
 urlpatterns = [
     ...
-    path("", include("loggerpanel.urls")),
+    path("", include("django_logger_panel.urls")),
     ...
 
 ]
