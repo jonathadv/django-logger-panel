@@ -32,7 +32,33 @@
            </li>
            <li class="list-group-item">
                <span class="fw-bold">Handlers: </span>
-               <code>{{ logger.handlers}}</code>
+               <ul class="list-group list-group-flush">
+               {% for handler in logger.handlers %}
+                   <li class="list-group-item">
+                       <div>
+                           <span>Name: </span>
+                           <code>{{handler.get_name}}</code>
+                       </div>
+                       <div>
+                           <span>Class: </span>
+                           <code>{{handler | class_name}}</code>
+                       </div>
+                       <div>
+                           <span>Level: </span>
+                           <code>{{handler.level | log_level_name}}</code>
+                       </div>
+                       <div>
+                           <span>Formatter: </span>
+                           <code>{{handler.formatter}}</code>
+                       </div>
+                       <div>
+                           <span>Stream: </span>
+                           <code>{{handler.stream.name}}</code>
+                       </div>
+                   </li>
+              {% endfor %}
+               </ul>
+           </li>
            </li>
            <li class="list-group-item">
                <span class="fw-bold">Disabled: </span>
