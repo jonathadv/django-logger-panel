@@ -2,7 +2,7 @@ import logging
 
 from django import forms
 from django.core.exceptions import ValidationError
-from django.views.generic import TemplateView
+from django.views.generic import FormView, TemplateView
 
 from . import BASE_URL
 from .__version__ import __version__
@@ -39,7 +39,7 @@ class LoggerBaseView(TemplateView):
         return [dict(self._first_crumb)]
 
 
-class LoggerListView(LoggerBaseView):
+class LoggerListView(FormView, LoggerBaseView):
     template_name = "loggerpanel/loggers.html"
     form_class = SetLoggerLevelForm
     success_url = BASE_URL
