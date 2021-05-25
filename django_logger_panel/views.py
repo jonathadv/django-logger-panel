@@ -5,9 +5,14 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from . import BASE_URL
+from .__version__ import __version__
 from .loggerpanel import LEVELS, set_logger_level, get_all_loggers, get_all_log_level
 
 LOGGER = logging.getLogger(__name__)
+BASE_CONTEXT = {
+    "base_url": BASE_URL,
+    "project_version": __version__
+}
 
 
 class SetLoggerLevelForm(forms.Form):
@@ -15,7 +20,14 @@ class SetLoggerLevelForm(forms.Form):
     log_name = forms.CharField()
 
 
-class LoggerListView(FormView):
+class LoggerBaseView(TemplateView):
+    def get_context_data(self, **kwargs):
+        context: dict = super().get_context_data(**kwargs)
+        context.update(BASE_CONTEXT)
+        return context
+
+
+class LoggerListView(LoggerBaseView):
     template_name = "loggerpanel/loggers.html"
     form_class = SetLoggerLevelForm
     success_url = BASE_URL
@@ -47,21 +59,21 @@ class LoggerListView(FormView):
         return super(LoggerListView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context: dict = super().get_context_data(**kwargs)
+        context.update(BASE_CONTEXT)
         context["loggerdict"] = get_all_loggers()
         context["all_log_level"] = get_all_log_level()
         context["log_levels"] = LEVELS
-        context["base_url"] = BASE_URL
         return context
 
 
-class LoggingDetailView(TemplateView):
+class LoggingDetailView(LoggerBaseView):
     template_name = "loggerpanel/detail.html"
 
     def get_context_data(self, log_name=None, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context: dict = super().get_context_data(**kwargs)
+        context.update(BASE_CONTEXT)
         loggers = get_all_loggers()
         context["log_name"] = log_name
         context["logger"] = loggers.get(log_name)
-        context["base_url"] = BASE_URL
         return context
