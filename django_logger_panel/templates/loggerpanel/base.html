@@ -2,7 +2,7 @@
 {% load loggerpanel %}
 
 <!DOCTYPE html>
-<html>
+<html class="h-100">
   <head>
     {% block head %}
 
@@ -27,7 +27,6 @@
   {% block body %}
   <body class="d-flex flex-column h-100">
     <header>
-      <!-- Fixed navbar -->
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{base_url}}">Django Logger Panel</a>
@@ -36,19 +35,30 @@
     </header>
 
     <!-- Begin page content -->
+    <main class="flex-shrink-0">
+      <div class="container">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            {% for crumb in breadcrumb %}
+              {% if crumb.is_last %}
+              <li class="breadcrumb-item active" aria-current="page">{{crumb.name}}</li>
+              {% else %}
+              <li class="breadcrumb-item"><a href="{{crumb.url}}">{{crumb.name}}</a></li>
+              {% endif %}
+            {% endfor %}
+          </ol>
+        </nav>
     {% block content %}
     {% endblock %}
-
+      </div>
+    </main>
+    <footer class="footer mt-auto py-3 bg-light">
+      <div class="container text-center">
+        <span class="text-dark">v{{project_version}}</span>
+        <span class="text-dark">|</span>
+        <a class="text-dark" href="https://github.com/jonathadv/django-logger-panel" target="_blank">Github</a>
+      </div>
+    </footer>
   </body>
   {% endblock %}
-
-  <footer class="bg-light text-center text-lg-start pt-5">
-    <div class="text-center bg-dark p-3">
-      <span class="text-white text-sm">Version v{{project_version}}</span>
-      <span class="text-white text-sm">|</span>
-      <a class="text-white" href="https://github.com/jonathadv/django-logger-panel" alt="Github" title="Fork me on Github" target="_blank">
-        <span class="text-white text-sm">Fork me on Github</span>
-      </a>
-    </div>
-  </footer>
 </html>

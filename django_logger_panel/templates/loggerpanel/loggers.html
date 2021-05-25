@@ -3,14 +3,8 @@
 
 {% block content %}
 {% if loggerdict %}
-    <main class="flex-shrink-0">
-      <div class="container">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Loggers</li>
-          </ol>
-        </nav>
         <h1 class="mt-5">Loggers</h1>
+
         <p class="lead">List of all loggers loaded from the Python's <code class="small">logging</code> module.</p>
         <p><span class="fw-bold">Log Level</span> is the specific level set for a logger.
           If no level is set, the <span class="fw-bold">Effective Logger Level</span>
@@ -88,8 +82,6 @@
             </form>
           {% endfor %}
         </div>
-      </div>
-    </main>
 {% else %}
     <p>No logs to display</p>
 {% endif %}

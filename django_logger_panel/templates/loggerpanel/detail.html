@@ -2,17 +2,9 @@
 {% load loggerpanel %}
 
 {% block content %}
-    <main class="flex-shrink-0">
-      <div class="container">
-
         {% if logger %}
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{{base_url}}">Loggers</a></li>
-              <li class="breadcrumb-item active" aria-current="page">{{log_name}}</li>
-            </ol>
-          </nav>
-          <h1 class="mt-5">Logger <code>{{log_name}}</code></h1>
+         <h1 class="mt-5">Logger <code>{{log_name}}</code></h1>
+
          <ul class="list-group list-group-flush">
            <li class="list-group-item">
                <span class="fw-bold">Name: </span>
@@ -55,7 +47,5 @@
             </ol>
           </nav>
           <h1 class="mt-5">Logger Not Found</code></h1>
-      </div>
-    </main>
 {% endif %}
 {% endblock %}
