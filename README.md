@@ -34,7 +34,7 @@ INSTALLED_APPS = [
 
 ### LOGGING
 
-Make sure the `LOGGING` variable in `settings.py` has a `logger` named `''` with at least one `handler`. 
+Make sure the `root` has a `handler` set at the `LOGGING` dictionary in `settings.py`, as described in the [Django Documentation.](https://docs.djangoproject.com/en/3.2/topics/logging/#examples)
 This is the `root` `logger` configuration and will allow all `loggers` with no `handler` to inherit it from the `root`. 
 
 **Example:**
@@ -54,11 +54,9 @@ LOGGING = {
             'formatter': 'console',
         },
     },
-    'loggers': {
-        '': {
-            'level': 'DEBUG',
-            'handlers': ['console'],
-        },
+    'root': {
+        'level': 'DEBUG',
+        'handlers': ['console'],
     },
 }
 ```
