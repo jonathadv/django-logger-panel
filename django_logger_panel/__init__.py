@@ -16,4 +16,4 @@ else:
     LOGGER.debug("Using default value '%s' as BASE_URL", BASE_URL)
 
 # Used by urls.py
-BASE_URL_WITHOUT_LEADING_SLASH = re.sub(f"^/", "", BASE_URL)
+BASE_URL_WITHOUT_LEADING_SLASH = re.sub("^/", "", BASE_URL)

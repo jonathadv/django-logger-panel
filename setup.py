@@ -69,7 +69,7 @@ class LintCommand(Command):
 
     def run(self):
         self.status("Running Pylint...")
-        os.system(f"pipenv run pylint {NAME}".format(sys.executable))
+        os.system(f"pipenv run pylint {NAME.replace('-', '_')}".format(sys.executable))
         sys.exit()
 
 
