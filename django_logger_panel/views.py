@@ -21,7 +21,10 @@ class LoggerBaseView(TemplateView):
         breadcrumbs = []
         crumbs = [v for v in self.request.path.split("/") if v]
         while crumbs:
-            breadcrumbs.insert(0, {"url": f"/{'/'.join(crumbs)}", "name": crumbs.pop(), "is_last": False})
+            breadcrumbs.insert(
+                0,
+                {"url": f"/{'/'.join(crumbs)}", "name": crumbs.pop(), "is_last": False},
+            )
         breadcrumbs[-1]["is_last"] = True
         return breadcrumbs
 
@@ -29,7 +32,7 @@ class LoggerBaseView(TemplateView):
         base_context = {
             "base_url": BASE_URL,
             "project_version": __version__,
-            "breadcrumbs": self.get_breadcrumbs()
+            "breadcrumbs": self.get_breadcrumbs(),
         }
         context: dict = super().get_context_data(**kwargs)
         context.update(base_context)
