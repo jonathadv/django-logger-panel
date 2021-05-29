@@ -13,7 +13,7 @@
         <p>For more information about <code class="small">logging.Logger.setLevel()</code>
           read the <a href="https://docs.python.org/3/library/logging.html#logging.Logger.setLevel">documentation</a>.</p>
         </section>
-        {% if loggerdict %}
+        {% if loggers %}
         <section>
           <table class="table">
             <thead>
@@ -46,7 +46,7 @@
                 <td></td>
               </tr>
 
-            {% for loggername, logger in loggerdict.items %}
+            {% for loggername, logger in loggers.items %}
               <tr>
                 <th scope="row"><code class="">{{loggername}}</code></th>
                 <td><code class="">{{logger.level | log_level_name}}</code></td>

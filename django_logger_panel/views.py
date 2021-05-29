@@ -17,26 +17,23 @@ class SetLoggerLevelForm(forms.Form):
 
 
 class LoggerBaseView(TemplateView):
-    _first_crumb = {"url": BASE_URL, "name": "Loggers", "is_last": True}
+    def get_breadcrumbs(self):
+        breadcrumbs = []
+        crumbs = [v for v in self.request.path.split("/") if v]
+        while crumbs:
+            breadcrumbs.insert(0, {"url": f"/{'/'.join(crumbs)}", "name": crumbs.pop(), "is_last": False})
+        breadcrumbs[-1]["is_last"] = True
+        return breadcrumbs
 
     def get_context_data(self, **kwargs):
         base_context = {
             "base_url": BASE_URL,
             "project_version": __version__,
-            "breadcrumb": self.get_base_breadcrumb()
+            "breadcrumbs": self.get_breadcrumbs()
         }
         context: dict = super().get_context_data(**kwargs)
         context.update(base_context)
         return context
-
-    def set_breadcrumb(self, context: dict, url: str, name: str):
-        crumb = {"url": url, "name": name, "is_last": True}
-        context["breadcrumb"] = self.get_base_breadcrumb()
-        context["breadcrumb"][0]["is_last"] = False
-        context["breadcrumb"].append(crumb)
-
-    def get_base_breadcrumb(self):
-        return [dict(self._first_crumb)]
 
 
 class LoggerListView(FormView, LoggerBaseView):
@@ -72,7 +69,7 @@ class LoggerListView(FormView, LoggerBaseView):
 
     def get_context_data(self, **kwargs):
         context: dict = super().get_context_data(**kwargs)
-        context["loggerdict"] = get_all_loggers()
+        context["loggers"] = get_all_loggers()
         context["all_log_level"] = get_all_log_level()
         context["log_levels"] = LEVELS
         return context
@@ -83,7 +80,6 @@ class LoggingDetailView(LoggerBaseView):
 
     def get_context_data(self, log_name=None, **kwargs):
         context: dict = super().get_context_data(**kwargs)
-        self.set_breadcrumb(context, log_name, log_name)
         loggers = get_all_loggers()
         context["log_name"] = log_name
         context["logger"] = loggers.get(log_name)

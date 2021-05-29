@@ -39,7 +39,7 @@
       <div class="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb">
-            {% for crumb in breadcrumb %}
+            {% for crumb in breadcrumbs %}
               {% if crumb.is_last %}
               <li class="breadcrumb-item active" aria-current="page">{{crumb.name}}</li>
               {% else %}
