@@ -4,14 +4,12 @@ Core module for Django Logger Panel
 
 from logging import Logger, PlaceHolder, CRITICAL, ERROR, WARNING, INFO, DEBUG, NOTSET
 from typing import Dict
-from .exceptions import LoggerPanelNotFoundError, LoggerPanelUnknownError
+from .exceptions import LoggerNotFoundError, LoggerUnknownError, UnknownLoggerLevelError
 
 __all__ = [
     "LEVELS",
-    "ALL_LOG_LEVEL",
     "set_logger_level",
     "get_all_loggers",
-    "get_all_log_level",
 ]
 
 LEVELS = {
@@ -23,7 +21,32 @@ LEVELS = {
     "NOTSET": NOTSET,
 }
 
-ALL_LOG_LEVEL = NOTSET
+
+class AllLogger:
+    """
+    A stub of Logger class to track the global "_all_loggers_" level
+    """
+
+    def __init__(self):
+        self.name = "_all_loggers_"
+        self.level = NOTSET
+        self.parent = None
+
+    # pylint: disable=invalid-name
+    def setLevel(self, level):
+        """Sets log level"""
+        if isinstance(level, int):
+            self.level = level
+        else:
+            self.level = LEVELS[level]
+
+    # pylint: disable=invalid-name
+    def getEffectiveLevel(self):
+        """Mimics the getEffectiveLevel() from a real Logger"""
+        return self.level
+
+
+ALL_LOGGER = AllLogger()
 
 
 def set_logger_level(log_name: str, log_level: str):
@@ -36,20 +59,17 @@ def set_logger_level(log_name: str, log_level: str):
     loggers = get_all_loggers()
 
     try:
-        if log_name == "ALL":
-            # pylint: disable=global-statement
-            global ALL_LOG_LEVEL
-            ALL_LOG_LEVEL = LEVELS.get(log_level, NOTSET)
+        if log_name == ALL_LOGGER.name:
             for _, logger in loggers.items():
                 logger.setLevel(log_level)
         else:
             loggers.get(log_name).setLevel(log_level)
     except (KeyError, AttributeError) as err:
-        raise LoggerPanelNotFoundError(f"Logger '{log_name}' not found") from err
+        raise LoggerNotFoundError(f"Logger '{log_name}' not found") from err
+    except ValueError as err:
+        raise UnknownLoggerLevelError(err) from err
     except Exception as err:
-        raise LoggerPanelUnknownError(
-            f"A unknown error happened while setting logger '{log_name}'"
-        ) from err
+        raise LoggerUnknownError(err) from err
 
 
 def get_all_loggers() -> Dict[str, Logger]:
@@ -58,6 +78,7 @@ def get_all_loggers() -> Dict[str, Logger]:
     :rtype: Dict[str, Logger]
     """
     loggers = {
+        ALL_LOGGER.name: ALL_LOGGER,
         "root": Logger.root,
     }
     loggers.update(
@@ -68,11 +89,3 @@ def get_all_loggers() -> Dict[str, Logger]:
         }
     )
     return loggers
-
-
-def get_all_log_level() -> int:
-    """
-    :return: the value of `ALL_LOG_LEVEL`
-    :rtype: int
-    """
-    return ALL_LOG_LEVEL

@@ -2,9 +2,13 @@ class LoggerPanelBaseException(Exception):
     pass
 
 
-class LoggerPanelNotFoundError(LoggerPanelBaseException):
+class LoggerNotFoundError(LoggerPanelBaseException):
     pass
 
 
-class LoggerPanelUnknownError(LoggerPanelBaseException):
+class UnknownLoggerLevelError(LoggerPanelBaseException):
+    pass
+
+
+class LoggerUnknownError(LoggerPanelBaseException):
     pass

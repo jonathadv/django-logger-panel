@@ -25,27 +25,6 @@
               </tr>
             </thead>
             <tbody>
-
-              <tr>
-                <th scope="row">ALL</th>
-                <td><code class="">{{all_log_level| log_level_name}}</code></td>
-                <td>
-                  <form action="{{base_url}}" method="POST">
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <select name="log_level" class="form-select" aria-label="Default select example">
-                            {% for level_name, level_number in log_levels.items %}
-                            <option value="{{level_name}}" {% if level_number == all_log_level %} selected {% endif %}>{{level_name}}</option>
-                            {% endfor %}
-                      </select>
-                      <button class="btn btn-primary" type="submit">Set</button>
-                    </div>
-                    <input type="hidden" name="log_name" value="ALL"/>
-                    {% csrf_token %}
-                    </form>
-                </td>
-                <td></td>
-              </tr>
-
             {% for loggername, logger in loggers.items %}
               <tr>
                 <th scope="row"><code class="">{{loggername}}</code></th>
