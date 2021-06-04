@@ -2,7 +2,7 @@
 [![license](https://img.shields.io/pypi/l/django-logger-panel.svg)](https://pypi.python.org/pypi/django-logger-panel) 
 [![python versions](https://img.shields.io/pypi/pyversions/django-logger-panel.svg)](https://pypi.python.org/pypi/django-logger-panel) 
 [![Build Status](https://travis-ci.org/jonathadv/django-logger-panel.svg?branch=main)](https://travis-ci.org/jonathadv/django-logger-panel) 
-
+[![Code coverage](https://codecov.io/gh/jonathadv/django-logger-panel/branch/main/graph/badge.svg)](https://codecov.io/gh/jonathadv/django-logger-panel)
 
 # django-logger-panel
  
