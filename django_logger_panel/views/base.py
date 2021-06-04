@@ -1,9 +1,12 @@
 from typing import List, Dict
 
 from django.views.generic import TemplateView
-
 from django_logger_panel import BASE_URL
 from django_logger_panel.__version__ import __version__
+
+BASE_URL_KEY = "base_url"
+PROJECT_VERSION_KEY = "project_version"
+BREADCRUMBS_KEY = "breadcrumbs"
 
 
 class LoggerBaseView(TemplateView):
@@ -26,9 +29,9 @@ class LoggerBaseView(TemplateView):
         Adds `base_url`, `project_version` and `breadcrumbs` to the common context.
         """
         base_context = {
-            "base_url": BASE_URL,
-            "project_version": __version__,
-            "breadcrumbs": self.get_breadcrumbs(),
+            BASE_URL_KEY: BASE_URL,
+            PROJECT_VERSION_KEY: __version__,
+            BREADCRUMBS_KEY: self.get_breadcrumbs(),
         }
         context: dict = super().get_context_data(**kwargs)
         context.update(base_context)

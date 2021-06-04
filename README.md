@@ -92,3 +92,178 @@ urlpatterns = [
 ### Logger Details
 
 ![logger details](https://raw.githubusercontent.com/jonathadv/django-logger-panel/main/docs/img/logger-detail.png)
+
+## REST API
+
+### List loggers
+
+**Curl Example:**
+
+```bash
+curl http://localhost:8000/loggers/ -H 'Accept:application/json'
+```
+
+**Response:**
+
+```json
+{
+  "log_levels": {
+    "CRITICAL": 50,
+    "ERROR": 40,
+    "WARNING": 30,
+    "INFO": 20,
+    "DEBUG": 10,
+    "NOTSET": 0
+  },
+  "loggers": [
+    {
+      "name": "_all_loggers_",
+      "level": {
+        "code": 0,
+        "name": "NOTSET"
+      },
+      "effectiveLevel": {
+        "code": 0,
+        "name": "NOTSET"
+      },
+      "parent": null
+    },
+    {
+      "name": "root",
+      "level": {
+        "code": 30,
+        "name": "WARNING"
+      },
+      "effectiveLevel": {
+        "code": 30,
+        "name": "WARNING"
+      },
+      "parent": null
+    },
+    {
+      "name": "django",
+      "level": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "effectiveLevel": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "parent": "root"
+    },
+    {
+      "name": "django.db.backends",
+      "level": {
+        "code": 0,
+        "name": "NOTSET"
+      },
+      "effectiveLevel": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "parent": "django"
+    },
+    {
+      "name": "django.request",
+      "level": {
+        "code": 0,
+        "name": "NOTSET"
+      },
+      "effectiveLevel": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "parent": "django"
+    },
+    {
+      "name": "django.server",
+      "level": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "effectiveLevel": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "parent": "django"
+    },
+    {
+      "name": "django.security.csrf",
+      "level": {
+        "code": 0,
+        "name": "NOTSET"
+      },
+      "effectiveLevel": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "parent": "django"
+    },
+    {
+      "name": "django.db.backends.schema",
+      "level": {
+        "code": 0,
+        "name": "NOTSET"
+      },
+      "effectiveLevel": {
+        "code": 20,
+        "name": "INFO"
+      },
+      "parent": "django.db.backends"
+    }    
+  ]
+}
+
+
+```
+
+### Return a single logger
+
+**Curl Example:**
+
+```bash
+curl http://localhost:8000/loggers/django.db.backends -H 'Accept:application/json'
+```
+
+**Response:**
+
+```json
+{
+  "name": "django.db.backends",
+  "level": {
+    "code": 0,
+    "name": "NOTSET"
+  },
+  "effectiveLevel": {
+    "code": 20,
+    "name": "INFO"
+  },
+  "parent": "django"
+}
+```
+
+### Change logger level
+
+**Curl Example:**
+
+```bash
+curl -X POST http://localhost:8000/loggers/django.db.backends -d '{"logger_level": "DEBUG"}'
+```
+
+**Response:**
+
+```json
+{
+  "name": "django.db.backends",
+  "level": {
+    "code": 10,
+    "name": "DEBUG"
+  },
+  "effectiveLevel": {
+    "code": 10,
+    "name": "DEBUG"
+  },
+  "parent": "django"
+}
+```
