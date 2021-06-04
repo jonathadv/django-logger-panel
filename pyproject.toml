@@ -21,6 +21,7 @@ addopts = """
 --cov
 --cov-branch
 --cov-fail-under 70
+--cov-report term-missing
 """
 testpaths = [
     "tests",

@@ -13,3 +13,6 @@ script:
     - python setup.py format
     - python setup.py lint
     - python setup.py test
+
+after_success:
+    - pipenv run codecov --token=${CODECOV_TOKEN}
