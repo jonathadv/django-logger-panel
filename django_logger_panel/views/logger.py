@@ -38,6 +38,7 @@ class LoggerListView(LoggerBaseView):
         try:
             set_logger_level(logger_name, logger_level)
             return HttpResponseRedirect(self.success_url)
+        # pylint: disable=broad-except
         except Exception as err:
             LOGGER.error(err)
             context = self.get_context_data(**kwargs)
@@ -65,6 +66,8 @@ class LoggerDetailView(LoggerBaseView):
 
     template_name = "loggerpanel/detail.html"
 
+    # pylint: disable=no-self-use
+    # pylint: disable=broad-except
     def post(self, request, *_args, **kwargs):
         """Handles the details for a logger instance"""
         try:

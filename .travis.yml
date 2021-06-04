@@ -1,0 +1,15 @@
+language: python
+python:
+    - "3.6"
+    - "3.7"
+    - "3.8"
+    - "3.9"
+
+install:
+    - pip install pipenv
+    - pipenv install --dev
+
+script:
+    - python setup.py format
+    - python setup.py lint
+    - python setup.py test

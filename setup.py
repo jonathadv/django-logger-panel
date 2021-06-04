@@ -121,7 +121,7 @@ class TestCommand(Command):
 
     def run(self):
         self.status("Testing...")
-        code = os.system("pipenv run python -m pytest".format(sys.executable))
+        code = os.system("pipenv run pytest".format(sys.executable))
         sys.exit(return_code(code))
 
 
