@@ -11,6 +11,8 @@ black = "==21.5b1"
 pylint = "*"
 django = "*"
 pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.8"

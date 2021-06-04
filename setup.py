@@ -50,6 +50,10 @@ else:
     about["__version__"] = VERSION
 
 
+def return_code(code: int):
+    return code if code == 0 else 1
+
+
 class LintCommand(Command):
     """Run pylint"""
 
@@ -69,8 +73,10 @@ class LintCommand(Command):
 
     def run(self):
         self.status("Running Pylint...")
-        os.system(f"pipenv run pylint {NAME.replace('-', '_')}".format(sys.executable))
-        sys.exit()
+        code = os.system(
+            f"pipenv run pylint {NAME.replace('-', '_')}".format(sys.executable)
+        )
+        sys.exit(return_code(code))
 
 
 class FormatCommand(Command):
@@ -92,8 +98,31 @@ class FormatCommand(Command):
 
     def run(self):
         self.status("Formatting...")
-        os.system("pipenv run black .".format(sys.executable))
-        sys.exit()
+        code = os.system("pipenv run black .".format(sys.executable))
+        sys.exit(return_code(code))
+
+
+class TestCommand(Command):
+    """Format code with Black"""
+
+    description = "Test code with PyTest."
+    user_options = []
+
+    @staticmethod
+    def status(s):
+        """Prints things in bold."""
+        print("\033[1m{0}\033[0m".format(s))
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        self.status("Testing...")
+        code = os.system("pipenv run python -m pytest".format(sys.executable))
+        sys.exit(return_code(code))
 
 
 class UploadCommand(Command):
@@ -169,5 +198,6 @@ setup(
         "upload": UploadCommand,
         "format": FormatCommand,
         "lint": LintCommand,
+        "test": TestCommand,
     },
 )

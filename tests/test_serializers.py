@@ -8,8 +8,8 @@ from django_logger_panel.serializers import (
 )
 
 
-class RestTestCase(TestCase):
-    """Test suite for the serializers."""
+class SerializerTestCase(TestCase):
+    """Test suite for serializers."""
 
     def setUp(self):
         """Define the test variables."""
@@ -24,7 +24,7 @@ class RestTestCase(TestCase):
             "name": "root",
             "parent": None,
         }
-        self.assertDictEqual(expected, serialized)
+        self.assertDictEqual(serialized, expected)
 
     def test_logger_list_serializer(self):
         """Test the logger_list_serializer() result schema."""

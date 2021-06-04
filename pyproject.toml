@@ -13,3 +13,18 @@ extend-exclude = '''
   | migrations
 )/
 '''
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = """
+-v
+--cov
+--cov-branch
+--cov-fail-under 70
+"""
+testpaths = [
+    "tests",
+]
+
+[tool.coverage.run]
+source = ['django_logger_panel']
