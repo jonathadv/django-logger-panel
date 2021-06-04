@@ -28,19 +28,19 @@
             {% for loggername, logger in loggers.items %}
               <tr>
                 <th scope="row"><code class="">{{loggername}}</code></th>
-                <td><code class="">{{logger.level | log_level_name}}</code></td>
+                <td><code class="">{{logger.level | logger_level_name}}</code></td>
                 <td>
                   <form action="{{base_url}}" method="POST">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <select name="log_level" class="form-select" aria-label="Default select example">
-                        {% for level_name, level_number in log_levels.items %}
+                      <select name="logger_level" class="form-select" aria-label="Default select example">
+                        {% for level_name, level_number in logger_levels.items %}
                         <option value="{{level_name}}" {% if level_number == logger.getEffectiveLevel %} selected {% endif %}>{{level_name}}
                         </option>
                         {% endfor %}
                       </select>
                       <button class="btn btn-primary" type="submit">Set</button>
                     </div>
-                    <input type="hidden" name="log_name" value="{{loggername}}"/>
+                    <input type="hidden" name="logger_name" value="{{loggername}}"/>
                     {% csrf_token %}
                 </form>
                 </td>

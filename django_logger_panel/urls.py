@@ -8,7 +8,7 @@ BASE_URL = BASE_URL_WITHOUT_LEADING_SLASH
 urlpatterns = [
     path(f"{BASE_URL}", LoggerListView.as_view(), name="loggerpanel-list"),
     path(
-        f"{BASE_URL}<str:log_name>",
+        f"{BASE_URL}<str:logger_name>",
         LoggingDetailView.as_view(),
         name="loggerpanel-detail",
     ),

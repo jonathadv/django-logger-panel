@@ -48,6 +48,11 @@
             {% endfor %}
           </ol>
         </nav>
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+          {{error}}
+        </div>
+        {% endif %}
     {% block content %}
     {% endblock %}
       </div>
