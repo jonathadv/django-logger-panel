@@ -53,7 +53,9 @@ class LoggerListView(LoggerBaseView):
 
     def render_to_json_response(self, context: dict):
         """Renders `logger_levels` and `loggers` as JSON"""
-        data = logger_response_serializer(context["logger_levels"], context["loggers"])
+        data = logger_response_serializer(
+            context[LOGGER_LEVELS_KEY], context[LOGGERS_KEY]
+        )
         return JsonResponse(data)
 
 

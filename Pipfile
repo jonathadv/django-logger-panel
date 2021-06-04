@@ -10,6 +10,7 @@ twine = "*"
 black = "==21.5b1"
 pylint = "*"
 django = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.8"

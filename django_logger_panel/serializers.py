@@ -31,7 +31,7 @@ def logger_list_serializer(loggers: Dict[str, Logger]) -> List[Dict[str, Any]]:
     return [logger_serializer(v) for k, v in loggers.items()]
 
 
-def logger_response_serializer(log_levels: Dict[str, int], loggers: List[Logger]):
+def logger_response_serializer(log_levels: Dict[str, int], loggers: Dict[str, Logger]):
     """Receives a dict with logger levels and a list of Logger instances and returns
     a dict with the `log_levels` and `loggers` representations
     """
